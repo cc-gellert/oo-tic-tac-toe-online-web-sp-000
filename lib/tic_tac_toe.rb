@@ -17,11 +17,11 @@ class TicTacToe
   ]
   
   def display_board
-    puts " #{board[0]} | #{board[1]} | #{board[2]} "
+    puts " #{@board[0]} | #{@board[1]} | #{@board[2]} "
     puts '-----------'
-    puts " #{board[3]} | #{board[4]} | #{board[5]} "
+    puts " #{@board[3]} | #{@board[4]} | #{@board[5]} "
     puts '-----------'
-    puts " #{board[6]} | #{board[7]} | #{board[8]} "
+    puts " #{@board[6]} | #{@board[7]} | #{@board[8]} "
   end
   
   def input_to_index(user_input)
@@ -33,7 +33,7 @@ class TicTacToe
   end
   
   def position_taken?(index)
-    @board[index] == 'X' || board[index] == 'O'
+    @board[index] == 'X' || @board[index] == 'O'
   end
   
   def valid_move?(index)
@@ -44,11 +44,11 @@ class TicTacToe
     @board.count { |token| token == 'X' || token == 'O' }
   end
 
-  def play(board)
-    turn(board) until over?(board)
-    if won?(board)
-      puts "Congratulations #{winner(board)}!"
-    elsif draw?(board)
+  def play
+    turn until over?
+    if won?
+      puts "Congratulations #{winner}!"
+    elsif draw?
       puts "Cat's Game!"
     end
   end 
@@ -58,15 +58,15 @@ class TicTacToe
     user_input = gets.strip
     index = input_to_index(user_input)
     if valid_move?(index)
-      move(index, current_player(board))
-      display_board(board)
+      move(index, current_player)
+      display_board
     else
       turn
     end
   end
   
   def current_player
-    turn_count(@board).even? ? 'X' : 'O'
+    turn_count.even? ? 'X' : 'O'
   end
 
   def won?
@@ -77,21 +77,21 @@ class TicTacToe
     end
   end
   
-  def full?(board)
-    board.all? { |token| token == 'X' || token == 'O' }
+  def full?
+    @board.all? { |token| token == 'X' || token == 'O' }
   end
 
-  def draw?(board)
-    !won?(board) && full?(board)
+  def draw?
+    !won? && full?
   end
 
-  def over?(board)
-    won?(board) || draw?(board)
+  def over?
+    won? || draw?
   end
 
-  def winner(board)
-    if winning_combo = won?(board)
-      board[winning_combo.first]
+  def winner
+    if winning_combo = won?
+      @board[winning_combo.first]
     end
   end
 end

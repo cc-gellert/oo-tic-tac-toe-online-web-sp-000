@@ -16,11 +16,7 @@ class TicTacToe
     [2, 4, 6]
   ]
   
-  def board 
-    @board 
-  end 
-  
-  def display_board(board)
+  def display_board
     puts " #{board[0]} | #{board[1]} | #{board[2]} "
     puts '-----------'
     puts " #{board[3]} | #{board[4]} | #{board[5]} "
@@ -34,6 +30,10 @@ class TicTacToe
   
   def move(board, index, player)
     board[index] = player
+  end
+  
+  def position_taken?(board, index)
+    board[index] == 'X' || board[index] == 'O'
   end
 end 
 
@@ -83,9 +83,7 @@ def turn(board)
   end
 end
 
-def position_taken?(board, index)
-  board[index] == 'X' || board[index] == 'O'
-end
+
 
 def current_player(board)
   turn_count(board).even? ? 'X' : 'O'
